@@ -1,0 +1,38 @@
+<%inherit file="base.html"/>
+
+<%block name="header">
+    <link rel="image_src" href="http://s3.amazonaws.com/PROJECT/static/logo.jpg"/>
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content=""/>
+    <meta property="og:image:secure_url" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="fb:app_id" content="" />
+</%block>
+
+<%block name="js">
+    <script type="text/javascript">
+        angular.bootstrap(document.body, ['project']);
+        $(document).ready(function() {
+        });
+    </script>
+</%block>
+
+
+<div class="page-header">
+  <h1> <small></small></h1>
+</div>
+
+<div class="bs-callout bs-callout-warning">
+    <h4></h4>
+    text
+</div>
+
+<div class="row" ng-controller="ProjectCtrl">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+    </div>
+</div>

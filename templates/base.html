@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=" ">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="">
+    ## <link rel="shortcut icon" href="/static/favicon.gif">
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="//s3.amazonaws.com/weblibraries/static/common.css">
+     <link rel="stylesheet" href="/static/custom.css">
+    ##<link rel="stylesheet" href="//s3.amazonaws.com//static/custom.gz.css">
+
+    <%block name="header">
+    </%block>
+
+    <style type="text/css">
+      ul.social-icons {
+          font-size: 15px;
+          padding-top: 2px;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="container">
+      <%include file="navbar.html"/>
+
+      % if messages:
+      % for message in messages:
+          <div class="alert fade in alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              ${message}
+          </div>
+      % endfor
+      % endif
+
+      <div class="row">
+        <div class="col-xs-12 col-md-10 col-lg-10">
+          ${self.body()}
+        </div>
+
+        <div class="hidden-xs hidden-sm col-md-2 col-lg-2">
+          <%include file="boobox_vertical_banner.html"/>
+        </div>
+      </div>
+
+      <%include file="boobox_horizontal_banner.html"/>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.18/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+    <script src="//s3.amazonaws.com/weblibraries/base64-string.js"></script>
+    <script src="//s3.amazonaws.com/weblibraries/static/common.min.js"></script>
+    <script src="/static/app.js"></script>
+    ## <script src="//s3.amazonaws.com//static/app.min.gz.js"></script>
+    <script language="JavaScript">
+    $(document).ready(function() {
+    });
+    </script>
+
+    <%block name="js">
+    </%block>
+
+    <%include file="script_facebook_like_button.html"/>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <%include file="script_google_analytics.html"/>
+  </body>
+</html>

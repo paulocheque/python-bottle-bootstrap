@@ -1,0 +1,24 @@
+.navbar-brand {
+    padding:0px;
+    margin:0px;
+}
+
+.navbar-brand img {
+    width:180px;
+    height:50px;
+}
+
+#twitter-widget-0 {
+    vertical-align: inherit !important;
+}
+
+body {
+/*background: url(/static/background.jpg)*/
+}
+canvas {
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 5px;
+    max-width: 100%;
+    min-width: 250px;
+}
