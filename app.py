@@ -4,7 +4,7 @@ import time
 import bottle
 
 import safe_bottle
-import handlers
+import app.handlers
 # import connect_mongo
 # import connect_redis
 

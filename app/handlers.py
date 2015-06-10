@@ -1,7 +1,7 @@
 import hashlib
 
 from bottle import static_file
-from bottle import route, post, request, response, error, redirect, template
+from bottle import get, post, request, response, error, redirect, template
 from bottle import MakoTemplate, mako_template as template
 
 try:
@@ -12,7 +12,7 @@ except ImportError:
     except ImportError:
         import json
 
-from models import *
+from .models import *
 
 
 def template(name='', data={}):
@@ -21,24 +21,15 @@ def template(name='', data={}):
                         default_filters=['decode.utf8'],
                         output_encoding='utf-8')
 
+# Index
 
-@route('/')
+@get('/')
 def index():
     return template(name='index.html')
 
+# Core API
 
-@route('/api/v1/images')
-def images():
+@get('/api/v1/links/<year>/<month>/<day>')
+def links():
     response.content_type = 'application/json'
-    return json.dumps(ImageLink.all())
-
-
-@post('/save')
-def save():
-    response.content_type = 'text/html; charset=utf-8'
-    redirect('/%s' % (''))
-
-
-@route('/static/<filepath:path>')
-def server_static(filepath):
-    return static_file(filepath, root='./static')
+    return json.dumps([])
