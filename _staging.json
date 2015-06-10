@@ -1,0 +1,12 @@
+{
+    "python": "python2.7.9",
+    "url": "http://project-staging.herokuapp.com",
+    "host": "project-staging.herokuapp.com",
+    "port": 80,
+    "heroku_app": "project-staging",
+    "heroku_app_addons": ["newrelic", "papertrail", "redistogo", "mongolab", "heroku-postgresql"],
+    "heroku_worker": "project-worker-staging",
+    "heroku_worker_addons": ["papertrail", "scheduler", "sendgrid", "mailgun", "mandrill", "cloudamqp"],
+    "heroku_cedar": "cedar-14",
+    "paths": []
+}

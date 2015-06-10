@@ -1,0 +1,12 @@
+{
+    "python": "python2.7",
+    "url": "http://localhost:8000",
+    "host": "localhost",
+    "port": 8000,
+    "heroku_app": null,
+    "heroku_app_addons": [],
+    "heroku_worker": null,
+    "heroku_worker_addons": [],
+    "heroku_cedar": null,
+    "paths": []
+}
