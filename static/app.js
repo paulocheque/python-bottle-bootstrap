@@ -38,7 +38,8 @@ angular.module('project', ['ui'])
         // })
     });
 
-    $scope.func = function() {
+    $scope.getViews = function(views) {
+        return views + Math.floor((Math.random() * 5000) + 1000);
     }
 
 })
