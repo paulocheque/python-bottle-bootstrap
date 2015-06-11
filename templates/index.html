@@ -22,17 +22,29 @@
     </script>
 </%block>
 
-
-<div class="page-header">
-  <h1> <small></small></h1>
-</div>
-
-<div class="bs-callout bs-callout-warning">
-    <h4></h4>
-    text
-</div>
-
 <div class="row" ng-controller="ProjectCtrl">
-    <div class="col-xs-12 col-md-12 col-lg-12">
+    <div class="col-xs-12 col-md-12 col-lg-12 text-center">
+        <h2><span class="label label-warning">Próxima atualização: [[ nextUpdate ]]</span></h2>
+        <div class="page-header">
+          <h1>[[ date ]] <small></small></h1>
+        <button class="btn btn-primary">Dia anterior</button>
+        <button class="btn btn-primary">Dia seguinte</button>
+        </div>
+
+        <div class="row" ng-repeat="link in links track by $index">
+            <div class="col-xs-12 col-md-12 col-lg-12 text-center">
+                <p>
+                    <span class="label label-primary">Publicado em: [[ link.published_in.$date | date:'dd/MM/yyyy HH:mm' ]]</span>
+                    <span class="label label-primary">Views: [[ link.views ]]</span>
+                    <span class="label label-default" ng-repeat="tag in link.tags">[[ tag ]]</span>
+                </p>
+
+                <iframe src="[[ link.url ]]" frameborder=0 width=510 height=400 scrolling=no style="padding: 5px; background-color: black; border-radius: 5px;"></iframe>
+
+                <blockquote ng-show="link.text" class="text-justify">
+                    <p>[[ link.text ]]</p>
+                </blockquote>
+            </div>
+        </div>
     </div>
 </div>

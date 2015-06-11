@@ -20,11 +20,19 @@ angular.module('project', ['ui'])
 }])
 
 .controller('ProjectCtrl', function($scope, $http, $window) {
-    $scope.data = []
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth()+1; //January is 0!
+    var year = today.getFullYear();
 
-    $http.get("/api/v1/endpoint?format=json").success(function (data) {
-        // console.log(data)
-        $scope.data = data
+    $scope.date = year + "/" + month + "/" + day;
+    $scope.nextUpdate = "06:00"
+    $scope.links = []
+    $scope.messages = []
+
+    $http.get("/api/v1/links/" + year + "/" + month + "/" + day).success(function (data) {
+        console.log(data)
+        $scope.links = data
         // data.forEach(function(d) {
         //     $scope.data.push(d)
         // })

@@ -5,8 +5,9 @@ import bottle
 
 import safe_bottle
 import app.handlers
-# import connect_mongo
-# import connect_redis
+import connect_mongo
+import connect_redis
+
 
 if __name__ == "__main__":
     bottle.BaseRequest.MEMFILE_MAX = 1024 * 1 # in bytes

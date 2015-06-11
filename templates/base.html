@@ -32,17 +32,19 @@
     <div class="container">
       <%include file="navbar.html"/>
 
-      % if messages:
-      % for message in messages:
-          <div class="alert fade in alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              ${message}
-          </div>
-      % endfor
-      % endif
+      <div class="alert fade in alert-dismissable" ng-repeat="msg in messages">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          [[ msg ]]
+      </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-10 col-lg-10">
+        <div class="hidden-xs hidden-sm col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
+          <%include file="boobox_horizontal_banner.html"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-md-12 col-lg-9 col-lg-offset-1" style="background-color: white; border-radius: 10px;">
           ${self.body()}
         </div>
 
@@ -50,8 +52,6 @@
           <%include file="boobox_vertical_banner.html"/>
         </div>
       </div>
-
-      <%include file="boobox_horizontal_banner.html"/>
     </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -70,7 +70,6 @@
     <%block name="js">
     </%block>
 
-    <%include file="script_facebook_like_button.html"/>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <%include file="script_google_analytics.html"/>
   </body>

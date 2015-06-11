@@ -7,7 +7,7 @@ requests
 six
 pillow==2.5.1
 
-pymongo
+pymongo==2.8 # PyMongo 3 is incompatible with latest version of mongoengine
 mongoengine
 redis
 rq

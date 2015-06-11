@@ -13,12 +13,26 @@
 }
 
 body {
-/*background: url(/static/background.jpg)*/
+    background-color: black;
 }
+
 canvas {
     border-radius: 5px;
     border-style: solid;
     border-width: 5px;
     max-width: 100%;
     min-width: 250px;
+}
+
+iframe {
+}
+
+.label {
+    margin: 3px;
+}
+
+.row {
+    margin: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
