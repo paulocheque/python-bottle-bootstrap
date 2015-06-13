@@ -8,7 +8,7 @@ from .models import *
 def publish_new_link(): # it should run daily at 9/15/21 UTC
     total = Link.all_not_published().count()
     if total > 0:
-        index = random.randint(0, total)
+        index = random.randint(0, total-1) # [0, total-1]
         link = Link.all_not_published()[index]
         link.publish()
         refresh_cache()
