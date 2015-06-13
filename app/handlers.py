@@ -26,13 +26,13 @@ def template(name='', data={}):
 # Index
 
 @get('/')
-def index():
+def handler_index():
     return template(name='index.html')
 
 # Core API
 
 @get('/api/v1/links/<year:int>/<month:int>/<day:int>')
-def links_of_the_day(year, month, day):
+def handler_links_of_the_day(year, month, day):
     '''
     http GET http://localhost:8000/api/v1/links/2015/06/11
     '''
@@ -42,7 +42,7 @@ def links_of_the_day(year, month, day):
 
 
 @get('/api/v1/links/<tag_name>')
-def links(tag_name):
+def handler_links(tag_name):
     '''
     http GET http://localhost:8000/api/v1/links/a
     '''
@@ -53,7 +53,7 @@ def links(tag_name):
 
 
 @get('/api/v1/tags')
-def tags():
+def handler_tags():
     '''
     http GET http://localhost:8000/api/v1/tags
     '''
@@ -62,7 +62,7 @@ def tags():
 
 
 @post('/api/v1/link/<link_id>/view')
-def add_link_view(link_id):
+def handler_add_link_view(link_id):
     '''
     http -f POST http://localhost:8000/api/v1/link/1/view
     '''
@@ -75,7 +75,7 @@ def add_link_view(link_id):
 # Admin
 
 @post('/api/v1/link')
-def add_link():
+def handler_add_link():
     '''
     http -f POST http://localhost:8000/api/v1/link "Authorization:Token nice" url="http://google.com" tags="a,b,c" text="text"
     http -f POST http://localhost:8000/api/v1/link url="http://google.com" tags="a,b,c" text="text"
@@ -94,7 +94,7 @@ def add_link():
 
 
 @post('/api/v1/link/publish')
-def publish():
+def handler_publish():
     '''
     http -f POST http://localhost:8000/api/v1/link/publish "Authorization:Token nice"
     '''
@@ -110,7 +110,7 @@ def publish():
 # User
 
 @post('/api/v1/link/<id>/favorite')
-def toggle_favorite(id):
+def handler_toggle_favorite(id):
     '''
     http -f POST http://localhost:8000/api/v1/link/1/favorite
     '''
@@ -120,5 +120,5 @@ def toggle_favorite(id):
 # Static
 
 @get('/static/<filepath:path>')
-def server_static(filepath):
+def handler_server_static(filepath):
     return static_file(filepath, root='./static')
