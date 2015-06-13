@@ -86,11 +86,15 @@ def handler_add_link():
     url = request.params.get('url')
     tags = request.params.get('tags').split(',')
     text = request.params.get('text')
-    Link.objects.get_or_create(url=url, defaults=dict(tags=tags, text=text, revised=revised))
-    if revised:
-        return json.dumps({'msg': 'link has been added and revised'})
+    link, created = Link.objects.get_or_create(url=url, defaults=dict(tags=tags, text=text, revised=revised))
+    if not created:
+        response.status = 409
+        return json.dumps({'msg': 'Link already exists'})
     else:
-        return json.dumps({'msg': 'link has been added and it is pending'})
+        if revised:
+            return json.dumps({'msg': 'link has been added and revised'})
+        else:
+            return json.dumps({'msg': 'link has been added and it is pending'})
 
 
 @post('/api/v1/link/publish')
