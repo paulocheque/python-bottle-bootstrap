@@ -107,6 +107,20 @@ def handler_publish():
     else:
         return json.dumps({'msg': ''})
 
+
+@get('/api/v1/report')
+def handler_report():
+    '''
+    http GET http://localhost:8000/api/v1/report "Authorization:Token nice"
+    '''
+    response.content_type = 'application/json'
+    token = request.get_header('Authorization', 'Token ').split(' ')[1]
+    admin = True if token == 'nice' else None
+    if admin:
+        return json.dumps(report())
+    else:
+        return json.dumps({'msg': ''})
+
 # User
 
 @post('/api/v1/link/<id>/favorite')

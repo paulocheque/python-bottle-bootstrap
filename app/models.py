@@ -25,8 +25,24 @@ class Link(Document):
     errored = BooleanField()
 
     @staticmethod
-    def not_published():
+    def all_not_published():
         return Link.objects(published_in=None, revised=True, reported=None, blocked=None, errored=None)
+
+    @staticmethod
+    def all_published():
+        return Link.objects(published_in__ne=None, revised=True, reported=None, blocked=None, errored=None)
+
+    @staticmethod
+    def all_removed():
+        return Link.objects(Q(published_in__ne=None) & (Q(blocked=True) | Q(errored=True)))
+
+    @staticmethod
+    def all_reported():
+        return Link.objects(published_in__ne=None, reported__ne=None, blocked=None, errored=None)
+
+    @staticmethod
+    def top_links():
+        return Link.all_published().order_by('-views')[0:10]
 
     @staticmethod
     def get_links(adate):
@@ -54,6 +70,10 @@ class Link(Document):
 class Tag(Document):
     name = StringField(required=True, max_length=20)
     views = LongField(min_value=0, max_value=None, default=0)
+
+    @staticmethod
+    def top_tags():
+        return Tag.objects.order_by('-views')[0:10]
 
     @staticmethod
     def increment_views(tag_name):
