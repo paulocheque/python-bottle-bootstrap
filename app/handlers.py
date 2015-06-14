@@ -1,5 +1,5 @@
 # coding: utf-8
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from bottle import static_file
 from bottle import get, post, request, response, error, redirect, template
@@ -15,7 +15,10 @@ except ImportError:
 
 from .models import *
 from .tasks import *
+from .utils import *
 
+
+# Templates
 
 def template(name='', data={}):
     response.content_type = 'text/html; charset=utf-8'
@@ -23,26 +26,42 @@ def template(name='', data={}):
                         default_filters=['decode.utf8'],
                         output_encoding='utf-8')
 
-# Index
 
 @get('/')
 def handler_index():
-    return template(name='index.html')
+    # langs = simple_langs(request.headers.get('Accept-Language'))
+    return template(name='index.html', data={'date': datetime.today().date()})
+
+
+@get('/tags')
+def handler_tags():
+    return template(name='tags.html')
+
 
 # Core API
 
 @get('/api/v1/links/<year:int>/<month:int>/<day:int>')
-def handler_links_of_the_day(year, month, day):
+def api_links_of_the_day(year, month, day):
     '''
     http GET http://localhost:8000/api/v1/links/2015/06/11
     '''
     response.content_type = 'application/json'
-    links = Link.get_links(datetime(year, month, day))
-    return links.to_json()
+    currentDay = datetime(year, month, day)
+    nextDay = datetime(year, month, day) + timedelta(days=1)
+    lastDay = datetime(year, month, day) - timedelta(days=1)
+    links = Link.get_links(currentDay)
+    return {
+        'links': links.to_json(),
+        'currentDay': currentDay.isoformat(),
+        'nextDay': nextDay.isoformat(),
+        'lastDay': lastDay.isoformat(),
+        'lastUpdate': lastDay.isoformat(), # FIXME
+        'nextUpdate': nextDay.isoformat(), # FIXME
+    }
 
 
 @get('/api/v1/links/<tag_name>')
-def handler_links(tag_name):
+def api_links(tag_name):
     '''
     http GET http://localhost:8000/api/v1/links/a
     '''
@@ -53,16 +72,19 @@ def handler_links(tag_name):
 
 
 @get('/api/v1/tags')
-def handler_tags():
+def api_tags():
     '''
     http GET http://localhost:8000/api/v1/tags
     '''
     response.content_type = 'application/json'
-    return Tag.objects.to_json()
+    return {
+        'tags': Tag.objects.order_by('name').to_json(),
+        'languages': Tag.languages(),
+    }
 
 
 @post('/api/v1/link/<link_id>/view')
-def handler_add_link_view(link_id):
+def api_add_link_view(link_id):
     '''
     http -f POST http://localhost:8000/api/v1/link/1/view
     '''
@@ -75,7 +97,7 @@ def handler_add_link_view(link_id):
 # Admin
 
 @post('/api/v1/link')
-def handler_add_link():
+def api_add_link():
     '''
     http -f POST http://localhost:8000/api/v1/link "Authorization:Token nice" url="http://google.com" tags="a,b,c" text="text"
     http -f POST http://localhost:8000/api/v1/link url="http://google.com" tags="a,b,c" text="text"
@@ -101,7 +123,7 @@ def handler_add_link():
 
 
 @post('/api/v1/link/publish')
-def handler_publish():
+def api_publish():
     '''
     http -f POST http://localhost:8000/api/v1/link/publish "Authorization:Token nice"
     '''
@@ -116,7 +138,7 @@ def handler_publish():
 
 
 @get('/api/v1/report')
-def handler_report():
+def api_report():
     '''
     http GET http://localhost:8000/api/v1/report "Authorization:Token nice"
     '''
@@ -131,7 +153,7 @@ def handler_report():
 # User
 
 @post('/api/v1/link/<id>/favorite')
-def handler_toggle_favorite(id):
+def api_toggle_favorite(id):
     '''
     http -f POST http://localhost:8000/api/v1/link/1/favorite
     '''

@@ -1,0 +1,28 @@
+<%inherit file="base.html"/>
+
+<%block name="js">
+    <script type="text/javascript">
+        angular.bootstrap(document.body, ['project']);
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</%block>
+
+<div ng-controller="TagsCtrl" class="text-center">
+    <div class="row">
+        <table class="table table-condensed table-hover table-responsive col-md-6 col-lg-6">
+            <tr>
+                <th class="col-lg-1 text-center">Tag</th>
+                <th class="col-lg-1 text-center">Views</th>
+                <th class="col-lg-1 text-center" ng-repeat="lang in languages">[[ lang ]]</th>
+            </tr>
+
+            <tr ng-repeat="tag in tags">
+                <th class="text-center"><a href="">[[ tag.name ]]</a></th>
+                <td>[[ tag.views ]]</td>
+                <td class="col-lg-3 text-center" ng-repeat="lang in languages">[[ tag.translations[lang] ]]</td>
+            </tr>
+        </table>
+    </div>
+</div>
