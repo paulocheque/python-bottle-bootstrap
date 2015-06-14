@@ -38,7 +38,7 @@ angular.module('project', ['ui'])
         var month = date.getMonth()+1; //January is 0!
         var year = date.getFullYear();
         $http.get("/api/v1/links/" + year + "/" + month + "/" + day).success(function (data) {
-            console.log(data)
+            // console.log(data)
             $scope.links = JSON.parse(data['links'])
             $scope.currentDay = new Date(data['currentDay'])
             $scope.lastDay = new Date(data['lastDay'])
