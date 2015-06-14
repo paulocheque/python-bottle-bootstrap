@@ -29,7 +29,7 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container" ng-cloak>
       <%include file="navbar.html"/>
 
       <div class="alert fade in alert-dismissable" ng-repeat="msg in messages">
@@ -44,7 +44,7 @@
       </div>
 
       <div class="row">
-        <div class="col-xs-12 col-md-12 col-lg-12" style="background-color: white; border-radius: 10px;" ng-cloak>
+        <div class="col-xs-12 col-md-12 col-lg-12" style="background-color: white; border-radius: 10px;">
           ${self.body()}
         </div>
       </div>
