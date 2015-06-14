@@ -10,7 +10,7 @@ import connect_redis
 
 
 if __name__ == "__main__":
-    bottle.BaseRequest.MEMFILE_MAX = 1024 * 1 # in bytes
+    bottle.BaseRequest.MEMFILE_MAX = 1024 * 10 # in bytes
 
     import os
     server = os.getenv('SERVER', 'meinheld')
