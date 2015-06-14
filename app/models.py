@@ -62,6 +62,10 @@ class Link(Document):
         link = Link.objects.get(id=link_id)
         Tag.objects(name__in=link.tags).update_one(inc__views=1)
 
+    def save(self, *args, **kwargs):
+        self.tags = list(set(self.tags))
+        return super(Link, self).save(*args, **kwargs)
+
     def publish(self):
         self.published_in = datetime.now()
         self.save()

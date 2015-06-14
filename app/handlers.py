@@ -89,7 +89,10 @@ def handler_add_link():
     link, created = Link.objects.get_or_create(url=url, defaults=dict(tags=tags, text=text, revised=revised))
     if not created:
         response.status = 409
-        return json.dumps({'msg': 'Link already exists'})
+        link.text = text
+        link.tags.extend(tags)
+        link.save()
+        return json.dumps({'msg': 'Link already exists. Link updated.'})
     else:
         if revised:
             return json.dumps({'msg': 'link has been added and revised'})
