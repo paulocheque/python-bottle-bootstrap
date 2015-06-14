@@ -13,6 +13,7 @@ def add_link(string, save=False):
         link.save()
     return link
 
+
 def add_links(string, save=False):
     links = []
     blocks = string.split('\n\n')

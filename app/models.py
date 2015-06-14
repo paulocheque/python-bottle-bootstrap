@@ -78,8 +78,9 @@ class Link(Document):
 
 
 class Tag(Document):
-    name = StringField(required=True, max_length=20)
+    name = StringField(required=True, max_length=20) # default en
     views = LongField(min_value=0, max_value=None, default=0)
+    translations = MapField(field=StringField(max_length=40))
 
     @staticmethod
     def top_tags():
@@ -88,6 +89,36 @@ class Tag(Document):
     @staticmethod
     def increment_views(tag_name):
         Tag.objects(name=tag_name).update_one(inc__views=1)
+
+    @staticmethod
+    def languages():
+        return sorted('ar,de,en,es,fr,hi,it,pt,ru,zh'.split(','))
+
+    def add_translation(self, lang, translation):
+        '''
+        arabic ar
+        german de
+        spanish es
+        english en
+        french fr
+        hindi hi
+        italian it
+        portuguese pt
+        russian ru
+        mandarin zh
+        '''
+        self.translations[lang] = translation
+        self.save()
+
+    def add_translations(self, tuples_lang_translation):
+        for lang, translation in tuples_lang_translation:
+            self.translations[lang] = translation
+        self.save()
+
+    def get_name(self, lang=None):
+        if lang and lang in self.translations:
+            return self.translations[lang]
+        return self.name
 
     def get_links(self):
         return Link.objects(tags=self.name)
