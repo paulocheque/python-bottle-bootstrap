@@ -15,12 +15,14 @@
             <tr>
                 <th class="col-lg-1 text-center">Tag</th>
                 <th class="col-lg-1 text-center">Views</th>
+                <th class="col-lg-1 text-center">Links</th>
                 <th class="col-lg-1 text-center" ng-repeat="lang in languages">[[ lang ]]</th>
             </tr>
 
             <tr ng-repeat="tag in tags">
                 <th class="text-center"><a href="">[[ tag.name ]]</a></th>
                 <td>[[ tag.views ]]</td>
+                <td>[[ tag.links ]]</td>
                 <td class="col-lg-3 text-center" ng-repeat="lang in languages">[[ tag.translations[lang] ]]</td>
             </tr>
         </table>

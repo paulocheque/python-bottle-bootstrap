@@ -52,7 +52,6 @@ class Link(Document):
         links = Link.objects(published_in__gte=date_midnight, published_in__lt=next_day, blocked=None, errored=None)
         for index, link in enumerate(links):
             if link.views < 500:
-                print('updating')
                 links[index].views = links[index].views + random.randint(500, 1000)
         return links
 
@@ -70,7 +69,9 @@ class Link(Document):
         self.published_in = datetime.now()
         self.save()
         for tag in self.tags:
-            Tag.objects.get_or_create(name=tag)
+            tag, created = Tag.objects.get_or_create(name=tag)
+            tag.links += 1
+            tag.save()
 
     def async_increment_views(self):
         queue = connect_redis.default_queue()
@@ -80,6 +81,7 @@ class Link(Document):
 class Tag(Document):
     name = StringField(required=True, max_length=20) # default en
     views = LongField(min_value=0, max_value=None, default=0)
+    links = LongField(min_value=0, max_value=None, default=0)
     translations = MapField(field=StringField(max_length=40))
 
     @staticmethod

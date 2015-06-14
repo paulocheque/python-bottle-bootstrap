@@ -80,7 +80,7 @@
         $scope.languages = []
 
         $http.get("/api/v1/tags").success(function (data) {
-            console.log(data)
+            // console.log(data)
             $scope.languages = data['languages']
             $scope.tags = JSON.parse(data['tags'])
         });
