@@ -46,15 +46,14 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 col-lg-12" ng-repeat="link in links track by $index">
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+                <iframe ng-src="[[ link.url ]]" frameborder=0 width=510 height=400 scrolling=no style="padding: 5px; background-color: black; border-radius: 5px;"></iframe>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-6">
                 <p>
                     <span class="label label-default">Publicado em: [[ link.published_in.$date | date:'dd/MM/yyyy HH:mm' ]]</span>
                     <span class="label label-default">Views: [[ link.views ]]</span>
                     <span class="label label-default" ng-repeat="tag in link.tags">[[ tag ]]</span>
                 </p>
-
-                <iframe ng-src="[[ link.url ]]" frameborder=0 width=510 height=400 scrolling=no style="padding: 5px; background-color: black; border-radius: 5px;"></iframe>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-6">
                 <blockquote ng-show="link.text" class="text-justify" style="height: 400px; overflow: scroll;">
                     <p>[[ link.text ]]</p>
                 </blockquote>
