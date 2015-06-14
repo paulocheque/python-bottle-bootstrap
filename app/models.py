@@ -4,6 +4,7 @@ from decimal import Decimal, ROUND_HALF_UP
 import itertools
 import logging
 import os
+import random
 import re
 import sha
 from StringIO import StringIO
@@ -48,7 +49,12 @@ class Link(Document):
     def get_links(adate):
         date_midnight = adate.date()
         next_day = adate.date() + timedelta(days=1)
-        return Link.objects(published_in__gte=date_midnight, published_in__lt=next_day, blocked=None, errored=None)
+        links = Link.objects(published_in__gte=date_midnight, published_in__lt=next_day, blocked=None, errored=None)
+        for index, link in enumerate(links):
+            if link.views < 500:
+                print('updating')
+                links[index].views = links[index].views + random.randint(500, 1000)
+        return links
 
     @staticmethod
     def increment_views(link_id):
