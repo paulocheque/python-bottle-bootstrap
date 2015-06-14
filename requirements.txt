@@ -20,3 +20,5 @@ boto_rsync
 short_url
 
 newrelic
+
+nose
