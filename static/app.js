@@ -117,9 +117,10 @@
     })
 
     .controller('LinksOfTheTagCtrl', function($scope, $http, $routeParams) {
+        $scope.tag = $routeParams.tag_name
         $scope.links = []
 
-        $http.get("/api/v1/links/tag/" + $routeParams.tag_name).success(function (data) {
+        $http.get("/api/v1/links/tag/" + $scope.tag).success(function (data) {
             console.log(data)
             $scope.links = data
         });
