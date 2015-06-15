@@ -30,17 +30,12 @@ def template(name='', data={}):
 @get('/')
 def handler_index():
     # langs = simple_langs(request.headers.get('Accept-Language'))
-    return template(name='index.html', data={'date': datetime.today().date()})
-
-
-@get('/tags')
-def handler_tags():
-    return template(name='tags.html')
+    return template(name='index.html')
 
 
 # Core API
 
-@get('/api/v1/links/<year:int>/<month:int>/<day:int>')
+@get('/api/v1/links/day/<year:int>/<month:int>/<day:int>')
 def api_links_of_the_day(year, month, day):
     '''
     http GET http://localhost:8000/api/v1/links/2015/06/11
@@ -61,8 +56,8 @@ def api_links_of_the_day(year, month, day):
     }
 
 
-@get('/api/v1/links/<tag_name>')
-def api_links(tag_name):
+@get('/api/v1/links/tag/<tag_name>')
+def api_links_of_the_tag(tag_name):
     '''
     http GET http://localhost:8000/api/v1/links/a
     '''
