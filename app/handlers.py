@@ -47,16 +47,17 @@ def api_links_of_the_day(year, month, day):
     '''
     response.content_type = 'application/json'
     currentDay = datetime(year, month, day)
-    nextDay = datetime(year, month, day) + timedelta(days=1)
-    lastDay = datetime(year, month, day) - timedelta(days=1)
+    nextDay = currentDay + timedelta(days=1)
+    lastDay = currentDay - timedelta(days=1)
     links = Link.get_links(currentDay)
+    s, _ = System.objects.get_or_create()
     return {
         'links': links.to_json(),
         'currentDay': currentDay.isoformat(),
         'nextDay': nextDay.isoformat(),
         'lastDay': lastDay.isoformat(),
-        'lastUpdate': lastDay.isoformat(), # FIXME
-        'nextUpdate': nextDay.isoformat(), # FIXME
+        'lastUpdate': s.last_update.isoformat(),
+        'nextUpdate': s.next_update.isoformat(),
     }
 
 

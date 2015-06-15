@@ -14,6 +14,18 @@ from mongoengine import *
 import connect_redis
 
 
+class System(Document):
+    last_update = DateTimeField()
+    next_update = DateTimeField()
+
+    def save(self, *args, **kwargs):
+        # BR: 00:00 - 06:00 - 12:00 - 18:00
+        # UTC: 21:00 - 03:00 - 09:00 - 15:00
+        self.last_update = datetime.now()
+        self.next_update = self.last_update + timedelta(hours=6)
+        return super(System, self).save(*args, **kwargs)
+
+
 class Link(Document):
     url = URLField(required=True)
     tags = ListField(StringField(required=True, max_length=20), required=True)
@@ -72,6 +84,8 @@ class Link(Document):
             tag, created = Tag.objects.get_or_create(name=tag)
             tag.links += 1
             tag.save()
+        s, _ = System.objects.get_or_create()
+        s.save()
 
     def async_increment_views(self):
         queue = connect_redis.default_queue()
