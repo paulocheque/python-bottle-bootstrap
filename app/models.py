@@ -11,7 +11,8 @@ from StringIO import StringIO
 import urllib
 
 from mongoengine import *
-import connect_redis
+
+import connect_mongo
 
 
 class System(Document):

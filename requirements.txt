@@ -24,3 +24,5 @@ short_url
 newrelic
 
 nose
+
+fabric-scripts
