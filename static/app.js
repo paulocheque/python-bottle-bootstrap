@@ -31,6 +31,10 @@
             templateUrl: '/static/pages/links_of_the_tag.html',
             controller: 'LinksOfTheTagCtrl'
         })
+        .when('/recommend/', {
+            templateUrl: '/static/pages/recommend_link.html',
+            controller: 'RecommendLinkCtrl'
+        })
     })
 
     .config(['$compileProvider', function ($compileProvider) {
@@ -126,7 +130,7 @@
         });
     })
 
-
-
+    .controller('RecommendLinkCtrl', function($scope, $http, $routeParams) {
+    })
 
 })();
