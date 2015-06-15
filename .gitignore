@@ -65,3 +65,4 @@ environment
 *.gz.css
 
 s3files/**/*.jpg
+celerybeat-schedule.db

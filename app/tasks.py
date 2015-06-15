@@ -2,19 +2,30 @@
 from datetime import datetime, timedelta
 import random
 
+from celery.schedules import crontab
+from celery.task import periodic_task
+
+import connect_mongo # Important: Celery run this module independently
 from .models import *
 
 
-def publish_new_link(): # it should run daily at 9/15/21 UTC
+# BR:  00:00 - 06:00 - 12:00 - 18:00
+# UTC: 21:00 - 03:00 - 09:00 - 15:00
+@periodic_task(run_every=crontab(minute=0, hour='3,9,15,21'))
+def publish_new_link():
     total = Link.all_not_published().count()
     if total > 0:
         index = random.randint(0, total-1) # [0, total-1]
         link = Link.all_not_published()[index]
         link.publish()
         refresh_cache()
+        return True
+    else:
+        return False
 
 
-def refresh_cache(): # it should run every 15minutes
+@periodic_task(run_every=crontab(minute='*/15'))
+def refresh_cache():
     # refresh cache tags
     # refresh cache last_day
     # refresh cache today
