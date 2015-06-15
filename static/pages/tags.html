@@ -1,10 +1,14 @@
+<div class="page-header">
+  <h1>[[ 'Tags' | translate ]] <small></small></h1>
+</div>
+
 <div ng-controller="TagsCtrl" class="text-center">
     <div class="row">
         <table class="table table-condensed table-hover table-responsive col-md-6 col-lg-6">
             <tr>
-                <th class="col-lg-1 text-center">Tag</th>
-                <th class="col-lg-1 text-center">Views</th>
-                <th class="col-lg-1 text-center">Links</th>
+                <th class="col-lg-1 text-center">[[ 'Tag' | translate ]]</th>
+                <th class="col-lg-1 text-center">[[ 'Views' | translate ]]</th>
+                <th class="col-lg-1 text-center">[[ 'Links' | translate ]]</th>
                 <th class="col-lg-1 text-center" ng-repeat="lang in languages">[[ lang ]]</th>
             </tr>
 

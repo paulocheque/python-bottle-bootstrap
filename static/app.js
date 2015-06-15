@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('project', ['ui', 'ngRoute'])
+    angular.module('project', ['ui', 'ngRoute', 'pascalprecht.translate'])
 
     .config(function($interpolateProvider) {
         $interpolateProvider.startSymbol('[[');
@@ -41,6 +41,16 @@
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|local|data):/);
     }])
 
+    .config(['$sceDelegateProvider', function ($sceDelegateProvider) {
+        $sceDelegateProvider.resourceUrlWhitelist(['self', new RegExp('^(http[s]?):\/\/.+$')]);
+    }])
+
+    .config(function ($translateProvider) {
+        $translateProvider.useStaticFilesLoader({ prefix: '/static/i18n/', suffix: '.json' })
+        // $translateProvider.preferredLanguage('en')
+        // $translateProvider.useLocalStorage()
+    })
+
     .run(function($http) {
       $http.defaults.headers.common['X-CSRFToken'] = $('input[name=csrfmiddlewaretoken]').val();
     })
@@ -49,11 +59,15 @@
         $httpProvider.defaults.headers.common['X-CSRFToken'] = $('input[name=csrfmiddlewaretoken]').val();
     }])
 
-    .config(['$sceDelegateProvider', function ($sceDelegateProvider) {
-        $sceDelegateProvider.resourceUrlWhitelist(['self', new RegExp('^(http[s]?):\/\/.+$')]);
-    }])
+    .controller('ProjectCtrl', function($scope, $http, $translate) {
+        $scope.languages = {
+            'ar':'Arabic', 'de':'German', 'es':'Spanish', 'en':'English', 'fr':'French',
+            'hi':'Hindi', 'it':'Italian', 'pt':'Portuguese', 'ru':'Russian', 'zh':'Mandarin'
+        }
 
-    .controller('ProjectCtrl', function($scope, $http) {
+        $scope.changeLanguage = function (key) {
+            $translate.use(key);
+        };
     })
 
     .controller('LinksOfTheDayCtrl', function($scope, $http, $routeParams) {

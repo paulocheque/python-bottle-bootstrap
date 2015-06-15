@@ -1,23 +1,23 @@
 <div class="page-header">
-  <h1>Send a link <small></small></h1>
+  <h1>[[ 'Recommend a link' | translate ]] <small></small></h1>
 </div>
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form method="post" action="/api/v1/link">
             <div class="form-group">
-                <label for="url">Url</label>
-                <input id="url" name="url" type="url" class="form-control" placeholder="A valid url">
+                <label for="url">[[ 'Url' | translate ]]</label>
+                <input id="url" name="url" type="url" class="form-control" placeholder="">
             </div>
             <div class="form-group">
-                <label for="tags">Tags</label>
+                <label for="tags">[[ 'Tags' | translate ]]</label>
                 <input id="tags" name="tags" type="text" class="form-control" placeholder="tag1,tag2,tag3">
             </div>
             <div class="form-group">
-                <label for="text">Text</label>
-                <textarea id="text" name="text" rows="5" class="form-control" placeholder="optional"></textarea>
+                <label for="text">[[ 'Text' | translate ]]</label>
+                <textarea id="text" name="text" rows="5" class="form-control" placeholder=""></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="submit" class="btn btn-primary">[[ 'Send' | translate ]]</button>
         </form>
     </div>
 </div>

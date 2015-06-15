@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-inverse">
+<nav class="navbar navbar-default navbar-inverse" ng-cloak>
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -7,17 +7,26 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#/">Brand</a>
+      <a class="navbar-brand" href="#/">[[ 'Brand' | translate ]]</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class=""><a href="#/"><span class="fa fa-link"></span> Links do dia</a></li>
-        <li class=""><a href="#tags/"><span class="fa fa-tags"></span> Tags</a></li>
-        <li class=""><a href="#recommend/"><span class="fa fa-send"></span> Recomendar link</a></li>
+        <li class=""><a href="#/"><span class="fa fa-link"></span> [[ 'Links of the day' | translate ]]</a></li>
+        <li class=""><a href="#tags/"><span class="fa fa-tags"></span> [[ 'Tags' | translate ]]</a></li>
+        <li class=""><a href="#recommend/"><span class="fa fa-send"></span> [[ 'Recommend a link' | translate ]]</a></li>
+
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown" ng-controller="ProjectCtrl">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">[[ 'Language' | translate ]] <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="(code, lang) in languages">
+                    <a ng-click="changeLanguage(code)" translate="[[ lang ]]"></a>
+                </li>
+              </ul>
+          </li>
       </ul>
     </div>
   </div>
