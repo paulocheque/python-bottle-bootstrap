@@ -85,9 +85,8 @@ def api_add_link_view(link_id):
     http -f POST http://localhost:8000/api/v1/link/1/view
     '''
     response.content_type = 'application/json'
-    Link.increment_views(link_id)
-    # link = Link.objects.get(id=link_id)
-    # link.async_increment_views()
+    # Link.increment_views(link_id) # sync
+    increment_views.delay(link_id) # async
     return json.dumps({'msg': 'ok'})
 
 # Admin

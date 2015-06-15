@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import random
 
 from celery.schedules import crontab
-from celery.task import periodic_task
+from celery.task import periodic_task, task
 
 import connect_mongo # Important: Celery run this module independently
 from .models import *
@@ -32,6 +32,7 @@ def refresh_cache():
     pass
 
 
+@task
 def increment_views(link_id):
     Link.increment_views(link_id)
 

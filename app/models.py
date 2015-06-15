@@ -89,10 +89,6 @@ class Link(Document):
         s, _ = System.objects.get_or_create()
         s.save()
 
-    def async_increment_views(self):
-        queue = connect_redis.default_queue()
-        queue.enqueue_call(func='app.tasks.increment_views', args=(self.id,))
-
 
 class Tag(Document):
     name = StringField(required=True, max_length=20) # default en
