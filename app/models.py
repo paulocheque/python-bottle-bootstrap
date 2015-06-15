@@ -82,6 +82,8 @@ class Link(Document):
         self.save()
         for tag in self.tags:
             tag, created = Tag.objects.get_or_create(name=tag)
+            if created:
+                tag.translate()
             tag.links += 1
             tag.save()
         s, _ = System.objects.get_or_create()
@@ -108,9 +110,6 @@ class Tag(Document):
 
     @staticmethod
     def languages():
-        return sorted('ar,de,en,es,fr,hi,it,pt,ru,zh'.split(','))
-
-    def add_translation(self, lang, translation):
         '''
         arabic ar
         german de
@@ -123,11 +122,13 @@ class Tag(Document):
         russian ru
         mandarin zh
         '''
-        self.translations[lang] = translation
-        self.save()
+        return sorted('ar,de,en,es,fr,hi,it,pt,ru,zh'.split(','))
 
-    def add_translations(self, tuples_lang_translation):
-        for lang, translation in tuples_lang_translation:
+    def translate(self):
+        import goslate
+        gs = goslate.Goslate()
+        for lang in Tag.languages():
+            translation = gs.translate(self.name, lang)
             self.translations[lang] = translation
         self.save()
 
